@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AMTabView_Example' do
+  pod 'AMTabView', :path => '../'
+
+  target 'AMTabView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
