@@ -1,0 +1,6 @@
+framework module AMTabView {
+  umbrella header "AMTabView-umbrella.h"
+
+  export *
+  module * { export * }
+}

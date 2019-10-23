@@ -1,0 +1,6 @@
+framework module Pods_AMTabView_Tests {
+  umbrella header "Pods-AMTabView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
