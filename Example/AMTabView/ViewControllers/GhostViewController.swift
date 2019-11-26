@@ -28,10 +28,14 @@ import AMTabView
 
 class GhostViewController: UIViewController, TabItem {
 
+  // MARK: - Properties
+
   var tabImage: UIImage? {
     return UIImage(named: "tab4")
   }
 
+  // MARK: - ViewController lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 

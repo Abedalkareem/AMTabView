@@ -27,14 +27,18 @@ import UIKit
 import AMTabView
 
 class BumpkinViewController: UIViewController, TabItem {
-
+  
+  // MARK: - Properties
+  
   var tabImage: UIImage? {
     return UIImage(named: "tab2")
   }
-
+  
+  // MARK: - ViewController lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
   }
-
+  
 }

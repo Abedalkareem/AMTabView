@@ -47,7 +47,7 @@ public class AMTabView: UIView {
   /// Number of tabs.
   ///
   public var numberOfTabs: Int {
-    return tabsImages.count
+    tabsImages.count
   }
   ///
   /// Selected tab index. The default value is `0`.
@@ -90,18 +90,24 @@ public class AMTabView: UIView {
     return height > ballSize ? ballSize : height
   }
   private var ballSize: CGFloat {
-    return itemWidth / 2
+    itemWidth / 2
   }
   private var iconSize: CGFloat {
-    return ballSize / 1.5
+    ballSize / 1.5
+  }
+  private var sectionWidth: CGFloat {
+    bounds.width / CGFloat(numberOfTabs)
+  }
+  private var sectionHeight: CGFloat {
+    bounds.height
   }
 
   private let ballAnimationKey = "ball_animation_key"
   private let tabChangingAnimationKey = "ball_animation_key"
 
-  private let itemLayer = CALayer()
+  private let ballLayer = CALayer()
   private let shapeLayer = CAShapeLayer()
-  private var buttons = [UIButton]()
+  private var imagesLayers = [CALayer]()
 
   // MARK: init
 
@@ -122,30 +128,22 @@ public class AMTabView: UIView {
     layer.addSublayer(shapeLayer)
     backgroundColor = .clear
 
-    itemLayer.backgroundColor = AMTabView.settings.ballColor.cgColor
-    layer.addSublayer(itemLayer)
+    ballLayer.backgroundColor = AMTabView.settings.ballColor.cgColor
+    layer.addSublayer(ballLayer)
   }
 
   private func addTabsImages() {
     tabsImages
-      .enumerated()
-      .map { offset, element -> UIButton in
-        let button = UIButton(type: .custom)
-        button.adjustsImageWhenHighlighted = false
-        button.setImage(element, for: .normal)
-
-        button.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(buttonTaped(_:)), for: .touchUpInside)
-        buttons.append(button)
-        return button
+      .map { element -> CALayer in
+        let maskLayer = CALayer()
+        maskLayer.contents = element.cgImage
+        maskLayer.contentsGravity = .resizeAspect
+        let layer = CALayer()
+        layer.mask = maskLayer
+        imagesLayers.append(layer)
+        return layer
     }
-    .forEach(addSubview(_:))
-  }
-
-  @objc
-  private func buttonTaped(_ sender: UIButton) {
-    let index = buttons.firstIndex(of: sender)
-    delegate?.tabDidSelectAt(index: index ?? 0)
+    .forEach(layer.addSublayer(_:))
   }
 
   // MARK: - View lifecycle
@@ -163,15 +161,14 @@ public class AMTabView: UIView {
   private func updateFrames() {
     shapeLayer.frame = bounds
 
-    itemLayer.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
-    itemLayer.cornerRadius = ballSize / 2
+    ballLayer.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
+    ballLayer.cornerRadius = ballSize / 2
 
-    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
-
-    buttons.enumerated().forEach { offset, element in
+    imagesLayers.enumerated().forEach { offset, element in
       let y = offset == Int(selectedTabIndex) ? 0 : (bounds.height / 2) - (iconSize / 2)
       let x =  (CGFloat(offset) * sectionWidth) + (sectionWidth / 2) - (iconSize / 2)
       element.frame = CGRect(x: x, y: y, width: iconSize, height: iconSize)
+      element.mask?.frame = element.bounds
     }
 
     self.moveToSelectedTab()
@@ -189,10 +186,21 @@ public class AMTabView: UIView {
     animateTintColorChanging()
   }
 
+  // MARK: - Actions
+
+  public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    guard let x = touches.first?.location(in: self).x else {
+      return
+    }
+    let index = floor(x / sectionWidth)
+
+    delegate?.tabDidSelectAt(index: Int(index))
+  }
+
   // MARK: - Paths
 
   private func ballPath() -> CGPath {
-    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
     let fromX = (CGFloat(previousTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
     let toX = (CGFloat(selectedTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
     var controlPointY = abs(fromX - toX)
@@ -206,8 +214,6 @@ public class AMTabView: UIView {
   }
 
   private func holePathForSelectedIndex() -> CGPath {
-    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
-    let sectionHeight = bounds.height
 
     let beginningOfTheTab = (CGFloat(selectedTabIndex) * sectionWidth)
 
@@ -269,21 +275,21 @@ public class AMTabView: UIView {
     animation.fillMode = .both
     animation.isRemovedOnCompletion = false
     animation.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)]
-    itemLayer.add(animation, forKey: ballAnimationKey)
+    ballLayer.add(animation, forKey: ballAnimationKey)
   }
 
   private func animateTintColorChanging() {
     UIView.animate(withDuration: AMTabView.settings.changeTinitColorAnimation) {
-      self.buttons
+      self.imagesLayers
         .enumerated()
         .filter({ $0.offset != Int(self.selectedTabIndex) })
         .forEach({
-          $0.element.tintColor = AMTabView.settings.unSelectedTabTintColor
+          $0.element.backgroundColor = AMTabView.settings.unSelectedTabTintColor.cgColor
           $0.element.frame.origin.y = (self.bounds.height / 2) - (self.iconSize / 2)
         })
 
-      let selectedTabButton = self.buttons[Int(self.selectedTabIndex)]
-      selectedTabButton.tintColor = AMTabView.settings.selectedTabTintColor
+      let selectedTabButton = self.imagesLayers[Int(self.selectedTabIndex)]
+      selectedTabButton.backgroundColor = AMTabView.settings.selectedTabTintColor.cgColor
       selectedTabButton.frame.origin.y = 0
     }
   }

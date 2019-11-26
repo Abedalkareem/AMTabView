@@ -28,11 +28,12 @@ import AMTabView
 
 class ViewController: AMTabsViewController {
 
-   override func viewDidLoad() {
+  // MARK: - ViewController lifecycle
+  
+  override func viewDidLoad() {
     super.viewDidLoad()
 
     setTabsControllers()
-
   }
 
   private func setTabsControllers() {

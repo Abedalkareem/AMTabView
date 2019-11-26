@@ -28,10 +28,14 @@ import AMTabView
 
 class FireworkViewController: UIViewController, TabItem {
 
+  // MARK: - Properties
+
   var tabImage: UIImage? {
     return UIImage(named: "tab3")
   }
 
+  // MARK: - ViewController lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
