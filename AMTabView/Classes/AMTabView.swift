@@ -46,14 +46,14 @@ public class AMTabView: UIView {
   ///
   /// Number of tabs.
   ///
-  public var numberOfTabs: CGFloat {
-    return CGFloat(tabsImages.count)
+  public var numberOfTabs: Int {
+    return tabsImages.count
   }
   ///
   /// Selected tab index. The default value is `0`.
   /// Changing this value will change the current select tab.
   ///
-  public var selectedTabIndex: CGFloat = 0 {
+  public var selectedTabIndex: Int = 0 {
     didSet {
       moveToSelectedTab()
     }
@@ -80,9 +80,9 @@ public class AMTabView: UIView {
 
   // MARK: Private properties
 
-  private var previousTabIndex: CGFloat = -1
+  private var previousTabIndex: Int = -1
   private var itemWidth: CGFloat {
-    let width = bounds.width / numberOfTabs
+    let width = bounds.width / CGFloat(numberOfTabs)
     return width > 100 ? 100 : width
   }
   private var itemHeight: CGFloat {
@@ -166,7 +166,7 @@ public class AMTabView: UIView {
     itemLayer.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
     itemLayer.cornerRadius = ballSize / 2
 
-    let sectionWidth = bounds.width / numberOfTabs
+    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
 
     buttons.enumerated().forEach { offset, element in
       let y = offset == Int(selectedTabIndex) ? 0 : (bounds.height / 2) - (iconSize / 2)
@@ -192,9 +192,9 @@ public class AMTabView: UIView {
   // MARK: - Paths
 
   private func ballPath() -> CGPath {
-    let sectionWidth = bounds.width / numberOfTabs
-    let fromX = ((previousTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
-    let toX = ((selectedTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
+    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
+    let fromX = (CGFloat(previousTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
+    let toX = (CGFloat(selectedTabIndex + 1) * sectionWidth) - (sectionWidth * 0.5)
     var controlPointY = abs(fromX - toX)
     controlPointY = controlPointY != 0 ? controlPointY : 50
     let path = UIBezierPath()
@@ -206,10 +206,10 @@ public class AMTabView: UIView {
   }
 
   private func holePathForSelectedIndex() -> CGPath {
-    let sectionWidth = bounds.width / numberOfTabs
+    let sectionWidth = bounds.width / CGFloat(numberOfTabs)
     let sectionHeight = bounds.height
 
-    let beginningOfTheTab = (selectedTabIndex * sectionWidth)
+    let beginningOfTheTab = (CGFloat(selectedTabIndex) * sectionWidth)
 
     let bezierPath = UIBezierPath()
     bezierPath.move(to: CGPoint(x: 0, y: 0))

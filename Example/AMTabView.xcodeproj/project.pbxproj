@@ -13,6 +13,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		AD14B264B68AD12203D84817 /* Pods_AMTabView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31E7DFD74CCFA58CAEF5A94 /* Pods_AMTabView_Example.framework */; };
+		C619882A238C5A3A00EB085F /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6198828238C59B400EB085F /* TabViewController.swift */; };
+		C619882D238C5B1300EB085F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C619882B238C5B0F00EB085F /* Images.xcassets */; };
 		C663491E236003DD003CBDDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6634919236003DD003CBDDE /* ViewController.swift */; };
 		C663491F236003DD003CBDDE /* GraveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663491A236003DD003CBDDE /* GraveViewController.swift */; };
 		C6634920236003DD003CBDDE /* FireworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663491B236003DD003CBDDE /* FireworkViewController.swift */; };
@@ -48,6 +50,8 @@
 		AA75AF8F8041A414F3458205 /* Pods-AMTabView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMTabView_Example.debug.xcconfig"; path = "Target Support Files/Pods-AMTabView_Example/Pods-AMTabView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B0854CEB1677828D328F5AB5 /* Pods-AMTabView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMTabView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-AMTabView_Tests/Pods-AMTabView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0EDBBBA6FA1BBAE943D8A74 /* Pods-AMTabView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMTabView_Example.release.xcconfig"; path = "Target Support Files/Pods-AMTabView_Example/Pods-AMTabView_Example.release.xcconfig"; sourceTree = "<group>"; };
+		C6198828238C59B400EB085F /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		C619882B238C5B0F00EB085F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C6634919236003DD003CBDDE /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C663491A236003DD003CBDDE /* GraveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraveViewController.swift; sourceTree = "<group>"; };
 		C663491B236003DD003CBDDE /* FireworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireworkViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C6198827238C592400EB085F /* ViewControllers */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -152,6 +157,7 @@
 		607FACE91AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C619882B238C5B0F00EB085F /* Images.xcassets */,
 				607FACEA1AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -165,6 +171,14 @@
 				FAE277C47FD83E353A4D2CF3 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		C6198827238C592400EB085F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C6198828238C59B400EB085F /* TabViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		C6634918236003DD003CBDDE /* ViewControllers */ = {
@@ -275,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C619882D238C5B1300EB085F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C619882A238C5A3A00EB085F /* TabViewController.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,13 +33,13 @@ open class AMTabsViewController: UIViewController {
   /// Selected tab index. The default value is `nil`.
   /// Changing this value will change the current select tab.
   ///
-  public var selectedTabIndex: Int? {
+  public var selectedTabIndex: Int {
     get {
-      return Int(tabBar?.selectedTabIndex ?? 0)
+      return tabBar.selectedTabIndex
     }
     set {
-      tabBar?.selectedTabIndex = CGFloat(newValue ?? 0)
-      moveToViewContollerAt(index: Int(newValue ?? 0))
+      tabBar?.selectedTabIndex = newValue
+      moveToViewContollerAt(index: newValue)
     }
   }
 
