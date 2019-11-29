@@ -132,14 +132,15 @@ open class AMTabsViewController: UIViewController {
 
   private func setTabsIcon() {
     tabBar.tabsImages = children.compactMap({ viewController -> UIImage? in
-      guard viewController is TabItem else {
+      var tabItem: TabItem!
+      if let controller = (viewController as? UINavigationController)?.topViewController as? TabItem {
+        tabItem = controller
+      } else if let controller = viewController as? TabItem {
+        tabItem = controller
+      } else {
         fatalError("View controller must implement `TabItem`")
       }
-      if let nav = viewController as? UINavigationController {
-        return (nav.topViewController as? TabItem)?.tabImage
-      } else {
-        return (viewController as? TabItem)?.tabImage
-      }
+      return tabItem.tabImage
     })
   }
 
