@@ -11,11 +11,12 @@ import AMTabView
 
 class TabViewController: UIViewController, TabItem {
 
-  var tabImage: UIImage?
+  var tabImage: UIImage? {
+    return UIImage()
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    tabImage = nil
 
   }
 

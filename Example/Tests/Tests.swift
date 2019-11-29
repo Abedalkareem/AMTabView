@@ -16,8 +16,19 @@ class Tests: XCTestCase {
     super.tearDown()
   }
 
-  func testSetNonTabItemViewControllersToViewControllers() {
+  func testTheDefaultSelectedItemIsZero() {
+    tabsViewController.viewControllers = [TabViewController(), TabViewController()]
+    XCTAssertEqual(tabsViewController.selectedTabIndex, 0)
+  }
 
+  func testNumberOfTabsAfterSettingTheViewControllers() {
+    tabsViewController.viewControllers = [TabViewController(), TabViewController()]
+    XCTAssertEqual(tabsViewController.viewControllers?.count, 2)
+  }
+
+  func testViewControllersNumbersEqualChildrenNumber() {
+    tabsViewController.viewControllers = [TabViewController(), TabViewController()]
+    XCTAssertEqual(tabsViewController.children, tabsViewController.viewControllers)
   }
 
 }
