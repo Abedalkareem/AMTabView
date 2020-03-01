@@ -151,14 +151,15 @@ open class AMTabsViewController: UIViewController {
     }
 
     let currentView = containerView.subviews.first
-    currentView?.removeFromSuperview()
 
-    let contoller = children[index]
-    let newView = contoller.view
+    let controller = children[index]
+    let newView = controller.view
     if newView?.superview == nil {
       containerView.addSubview(newView!)
-      contoller.didMove(toParent: self)
+      controller.didMove(toParent: self)
       newView?.frame = containerView.bounds
+    
+      doTransition(fromController: viewControllers![lastSelectedViewIndex ?? 0], toController: viewControllers![index], currentView: currentView, animate: true)
     }
 
     lastSelectedViewIndex = index
@@ -185,4 +186,24 @@ extension AMTabsViewController: AMTabViewDelegate {
     selectedTabIndex = index
   }
 
+}
+
+
+///
+/// Do the transition from current view to the target view. Allows to choose if the transition is animated or not.
+///
+func doTransition(fromController: UIViewController?, toController: UIViewController?,currentView: UIView?, animate: Bool){
+    
+    guard let fromView = fromController?.view, let toView = toController?.view else {
+        return
+   }
+    
+    if animate {
+        if fromView != toView {
+            UIView.transition(from: fromView, to: toView, duration: 0.3, options: [.transitionFlipFromLeft], completion: nil)
+        }
+    }else{
+        currentView?.removeFromSuperview()
+    }
+    
 }
