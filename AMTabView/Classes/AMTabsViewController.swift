@@ -25,10 +25,29 @@
 
 import UIKit
 
-open class AMTabsViewController: UIViewController {
+///
+/// To use any view controller as a tab you need to implement protocol.
+///
+public protocol TabItem {
+  ///
+  /// Image or title to show on the tab.
+  ///
+  var tabImage: UIImage? { get }
+}
+
+public protocol ControllerDelegate {
+  ///
+  /// Notify that CV did set
+  ///
+  func tabBarController(didSelect viewController: UIViewController)
+}
+
+open class AMTabsViewController: UIViewController, AMTabViewDelegate {
 
   // MARK: - Properties
-
+    
+  public var cvDelegate: ControllerDelegate?
+    
   ///
   /// Selected tab index. The default value is `nil`.
   /// Changing this value will change the current select tab.
@@ -72,7 +91,6 @@ open class AMTabsViewController: UIViewController {
 
   override open func viewDidLoad() {
     super.viewDidLoad()
-
   }
 
   private func initViews() {
@@ -144,6 +162,13 @@ open class AMTabsViewController: UIViewController {
     })
   }
 
+  ///
+  /// Override the method to get the tab selected actions.
+  ///
+  open func tabDidSelectAt(index: Int) {
+    selectedTabIndex = index
+  }
+
   private func moveToViewContollerAt(index: Int) {
 
     guard index != lastSelectedViewIndex else {
@@ -160,29 +185,8 @@ open class AMTabsViewController: UIViewController {
       contoller.didMove(toParent: self)
       newView?.frame = containerView.bounds
     }
-
+    // Notify delegate that CV did set
+    cvDelegate?.tabBarController(didSelect: contoller)
     lastSelectedViewIndex = index
   }
-
-}
-
-///
-/// To use any view controller as a tab you need to implement protocol.
-///
-public protocol TabItem {
-  ///
-  /// Image or title to show on the tab.
-  ///
-  var tabImage: UIImage? { get }
-}
-
-extension AMTabsViewController: AMTabViewDelegate {
-
-  ///
-  /// Override the method to get the tab selected actions.
-  ///
-  public func tabDidSelectAt(index: Int) {
-    selectedTabIndex = index
-  }
-
 }

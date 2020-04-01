@@ -27,13 +27,23 @@ import UIKit
 import AMTabView
 
 class ViewController: AMTabsViewController {
+  
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+      super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+      super.cvDelegate = self
+      setTabsControllers()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
+      super.cvDelegate = self
+      setTabsControllers()
+  }
 
   // MARK: - ViewController lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    setTabsControllers()
   }
 
   private func setTabsControllers() {
@@ -50,5 +60,23 @@ class ViewController: AMTabsViewController {
       ghostViewController
     ]
   }
+  
+  // Optional param, triggered always when user tabbed on tab bar element
+  override func tabDidSelectAt(index: Int) {
+      super.tabDidSelectAt(index: index)
+  }
+  
+}
+
+// MARK: - TabBarControllerDelegate
+
+extension ViewController: ControllerDelegate {
+
+  func tabBarController(didSelect viewController: UIViewController) {
+    print(viewController)
+    // If you were use separate root CV
+//      AppRouter.router.tabBarDidChangedTo(controller: viewController)
+  }
+
 }
 
