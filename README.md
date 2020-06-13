@@ -12,6 +12,10 @@
  <img src="https://raw.githubusercontent.com/Abedalkareem/AMTabView/master/screenshot.gif"  >
 </p>
 
+## Android
+
+It's also available on android you can find it [here](https://github.com/Abedalkareem/AMTabView-Android).
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
