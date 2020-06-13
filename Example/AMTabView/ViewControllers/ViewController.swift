@@ -34,6 +34,8 @@ class ViewController: AMTabsViewController {
     super.viewDidLoad()
 
     setTabsControllers()
+
+    selectedTabIndex = 2
   }
 
   private func setTabsControllers() {

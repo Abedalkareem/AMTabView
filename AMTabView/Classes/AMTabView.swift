@@ -183,7 +183,7 @@ public class AMTabView: UIView {
       self.animateTabTo(path: self.holePathForSelectedIndex())
       self.previousTabIndex = self.selectedTabIndex
     }
-    animateTintColorChanging()
+    animateTintColorChangingAndMoveY()
   }
 
   // MARK: - Actions
@@ -278,7 +278,7 @@ public class AMTabView: UIView {
     ballLayer.add(animation, forKey: ballAnimationKey)
   }
 
-  private func animateTintColorChanging() {
+  private func animateTintColorChangingAndMoveY() {
     UIView.animate(withDuration: AMTabView.settings.changeTinitColorAnimation) {
       self.imagesLayers
         .enumerated()
@@ -290,7 +290,7 @@ public class AMTabView: UIView {
 
       let selectedTabButton = self.imagesLayers[Int(self.selectedTabIndex)]
       selectedTabButton.backgroundColor = AMTabView.settings.selectedTabTintColor.cgColor
-      selectedTabButton.frame.origin.y = 0
+      selectedTabButton.frame.origin.y = -(selectedTabButton.frame.height / 8)
     }
   }
 
