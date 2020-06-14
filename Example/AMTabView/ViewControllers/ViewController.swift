@@ -52,5 +52,10 @@ class ViewController: AMTabsViewController {
       ghostViewController
     ]
   }
+
+  override func tabDidSelectAt(index: Int) {
+    super.tabDidSelectAt(index: index)
+    
+  }
 }
 

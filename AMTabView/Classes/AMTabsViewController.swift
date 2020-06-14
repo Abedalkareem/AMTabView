@@ -25,7 +25,7 @@
 
 import UIKit
 
-open class AMTabsViewController: UIViewController {
+open class AMTabsViewController: UIViewController, AMTabViewDelegate {
 
   // MARK: - Properties
 
@@ -164,8 +164,18 @@ open class AMTabsViewController: UIViewController {
     lastSelectedViewIndex = index
   }
 
+
+  // MARK: - AMTabViewDelegate
+  ///
+  /// Override the method to get the tab selected actions.
+  ///
+  open func tabDidSelectAt(index: Int) {
+    selectedTabIndex = index
+  }
+  
 }
 
+// MARK: - TabItem
 ///
 /// To use any view controller as a tab you need to implement protocol.
 ///
@@ -174,15 +184,4 @@ public protocol TabItem {
   /// Image or title to show on the tab.
   ///
   var tabImage: UIImage? { get }
-}
-
-extension AMTabsViewController: AMTabViewDelegate {
-
-  ///
-  /// Override the method to get the tab selected actions.
-  ///
-  public func tabDidSelectAt(index: Int) {
-    selectedTabIndex = index
-  }
-
 }
