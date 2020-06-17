@@ -78,6 +78,8 @@ public class AMTabView: UIView {
   ///
   public weak var delegate: AMTabViewDelegate?
 
+  /// show shadow on tabbar
+  public var showShadow = true
   // MARK: Private properties
 
   private var previousTabIndex: Int = -1
@@ -125,6 +127,11 @@ public class AMTabView: UIView {
     shapeLayer.fillColor = AMTabView.settings.tabColor.cgColor
     shapeLayer.lineWidth = 0.5
     shapeLayer.position = CGPoint(x: 10, y: 10)
+    if showShadow {
+        shapeLayer.shadowRadius = 5.0
+        shapeLayer.shadowColor = UIColor.gray.cgColor
+        shapeLayer.shadowOpacity = 0.8
+    }
     layer.addSublayer(shapeLayer)
     backgroundColor = .clear
 
